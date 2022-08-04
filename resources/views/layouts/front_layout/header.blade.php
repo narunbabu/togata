@@ -32,7 +32,7 @@
                             </li>
                             @else
                             <li>
-                                <a href="{{url('/login')}}"><img style="margin-right: 15px;" src="{{asset('icon/1.png')}}" alt="#" /></a>
+                                <a href="{{url('/login-register')}}"><img style="margin-right: 15px;" src="{{asset('icon/1.png')}}" alt="#" /></a>
                             </li>
                             @endif
 

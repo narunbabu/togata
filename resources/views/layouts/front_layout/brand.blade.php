@@ -4,7 +4,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="title">
-                            <h2>Featured <strong class="black">Products</strong></h2>
+                            <h2>Featured <strong class="black">Articles</strong></h2>
 
                         </div>
                     </div>

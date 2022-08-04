@@ -1,37 +1,91 @@
 <?php
-// Route::get('/', function () { return redirect('/admin/home'); });
 Route::get('/', function () {
     return view('home.index');
 });
 
+
+// Auth::routes();
+Route::get('/login-register', ['as'=>'login','uses'=> 'App\Http\Controllers\UserController@loginRegister']);
+Route::post('/login', [App\Http\Controllers\UserController::class, 'loginUser']);
+Route::post('/register', [App\Http\Controllers\UserController::class, 'registerUser']);
+
+Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('auth.logout');
+// Confirm Account
+Route::get('/confirm/{code}',[App\Http\Controllers\UserController::class, 'confirmAccount']);
+Route::post('/confirm/{code}',[App\Http\Controllers\UserController::class, 'confirmAccount']);
+
+// Forgot Password
+Route::get('/forgot/password',[App\Http\Controllers\UserController::class, 'forgotPassword']);
+Route::post('/forgot/password',[App\Http\Controllers\UserController::class, 'forgotPassword']);
+
+
+// Route::get('change_password', 'Auth\ChangePasswordController@showChangePasswordForm')->name('auth.change_password');
+// Route::patch('change_password', 'Auth\ChangePasswordController@changePassword')->name('auth.change_password');
+Route::get('change_password',[App\Http\Controllers\Auth\ChangePasswordController::class, 'showChangePasswordForm'])->name('auth.change_password');
+Route::patch('change_password',[App\Http\Controllers\Auth\ChangePasswordController::class, 'changePassword'])->name('auth.change_password_a');
+// Route::prefix('/admin')->namespace('Admin')->group(function(){
+//     Route::group(['middleware'=>['admin']], function(){
+
+//         // //dashboard
+//         // // Route::get('/dashboard',[App\Http\Controllers\Admin\AdminController::class, 'dashboard']);
+        
+//         Route::get('/home',function (){return 'Hello';});
+//         // //logout
+//         // Route::get('/logout',[App\Http\Controllers\Admin\AdminController::class, 'logout']);
+//         // // 
+    
+    
+    
+    
+//         // //Product
+    
+    
+    
+//         // Route::get('/product',[App\Http\Controllers\Admin\ProductController::class, 'product']);
+//         // Route::get('/delete-product/{id}',[App\Http\Controllers\Admin\ProductController::class, 'deleteProduct']);
+//         // Route::get('/add-edit-product/{id?}',[App\Http\Controllers\Admin\ProductController::class, 'addEditProduct']);
+//         // Route::post('/add-edit-product/{id?}',[App\Http\Controllers\Admin\ProductController::class, 'addEditProduct']);
+    
+    
+//     });
+// });
+
 // Route::get('/', function () { return redirect('/admin/attendance'); });
-Auth::routes();
-// Route::get('/login-register', ['as'=>'login','uses'=> 'App\Http\Controllers\UserController@loginRegister']);
 
 // Authentication Routes...
+// Route::get('login', 'Auth\LoginController@showLoginForm')->name('auth.login');
+// Route::post('login', 'Auth\LoginController@login')->name('auth.login');
+// Route::post('logout', 'Auth\LoginController@logout')->name('auth.logout');
 
-Route::get('login', 'Auth\LoginController@showLoginForm')->name('auth.login');
-Route::post('login', 'Auth\LoginController@login')->name('auth.login');
-Route::post('logout', 'Auth\LoginController@logout')->name('auth.logout');
+// Route::post('/login', [Auth\LoginController::class, 'showLoginForm'])->name('auth.login');
+// Route::post('/login', [Auth\LoginController::class, 'login'])->name('auth.login');
 
-// Change Password Routes...
-Route::get('change_password', 'Auth\ChangePasswordController@showChangePasswordForm')->name('auth.change_password');
-Route::patch('change_password', 'Auth\ChangePasswordController@changePassword')->name('auth.change_password');
+// // Change Password Routes...
 
-// Password Reset Routes...
-Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('auth.password.reset');
-Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('auth.password.reset');
-Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
-Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('auth.password.reset');
 
-// Registration Routes..
-Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('auth.register');
-Route::post('register', 'Auth\RegisterController@register')->name('auth.register');
+// Route::get('/change_password', [Auth\ChangePasswordController::class, 'showChangePasswordForm']);
+// Route::patch('/change_password', [Auth\ChangePasswordController::class, 'changePassword']);
+// // Password Reset Routes...
+// // Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('auth.password.reset');
+// // Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('auth.password.reset');
+// // Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+// // Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('auth.password.reset');
+
+// Route::get('/password/reset', [Auth\ForgotPasswordController::class, 'showLinkRequestForm']);
+// Route::post('/password/email', [Auth\ForgotPasswordController::class, 'sendResetLinkEmail']);
+// Route::get('/password/reset/{token}', [Auth\ResetPasswordController::class, 'showResetForm']);
+// Route::post('/password/reset', [Auth\ResetPasswordController::class, 'reset']);
+// // Registration Routes..
+// Route::get('/register', [Auth\RegisterController::class, 'showRegistrationForm']);
+// Route::post('/register', [Auth\RegisterController::class, 'register']);
+// Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('auth.register');
+// Route::post('register', 'Auth\RegisterController@register')->name('auth.register');
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/home', 'HomeController@index');
-    
-
+    // Route::get('/home',function (){return 'Hello';});
+    Route::get('/dashboard',[App\Http\Controllers\Admin\AdminController::class, 'dashboard']);
+    // Route::get('/dashboard',function(){return ['something'];});
     Route::resource('roles', 'Admin\RolesController');
     Route::post('roles_mass_destroy', ['uses' => 'Admin\RolesController@massDestroy', 'as' => 'roles.mass_destroy']);
     Route::resource('users', 'Admin\UsersController');
@@ -56,10 +110,24 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
  
 });
 //for ATTENDANCE routes
+
+// Route::group(['middleware' => ['auth'],'prefix' => 'admin'], function (){
+//     Route::get('attendance/{id}/delete', 'AttendanceController@deleteAttendance')->name('deleteattendance');
+//     Route::resource('attendance','AttendanceController');
+
+//     Route::get('attendance','AttendanceController@index')->name('attendance');
+
+//     Route::get('addAttendance','AttendanceController@addAttendance')->name('addAttendance');
+
+    
+//     Route::get('attendances','AttendanceController@all')->name('attendances');
+// });
 Route::group(['middleware' => ['auth'],'prefix' => 'admin'], function (){
     Route::get('attendance/{id}/delete', 'AttendanceController@deleteAttendance')->name('deleteattendance');
     Route::resource('attendance','AttendanceController');
-
+    // Route::resource('attendance', [App\Http\Controllers\Admin\AttendanceController::class, 'attendance']);
+    // Route::get('attendance', [App\Http\Controllers\AttendanceController::class, 'index']);
+    // Route::get('attendance','AttendanceController@index')->name('attendance');
     Route::get('attendance','AttendanceController@index')->name('attendance');
 
     Route::get('addAttendance','AttendanceController@addAttendance')->name('addAttendance');

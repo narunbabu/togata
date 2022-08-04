@@ -37,22 +37,6 @@
         }
     });
 
-    @if (auth()->check())
-    $('#moneyFormat').maskMoney({
-        // The symbol to be displayed before the value entered by the user
-        prefix:'{{ auth()->user()->currency->symbol }}',
-        // The thousands separator
-        thousands:'{{ auth()->user()->currency->money_format_thousands }}',
-        // The decimal separator
-        decimal:'{{ auth()->user()->currency->money_format_decimal }}'
-    }); 
-
-    $('#expense, #income').submit(function(){
-        var value = $('#moneyFormat').maskMoney('unmasked')[0];
-        $('#moneyFormat').val(value);
-    });
-    @endif
-     
 
 </script>
 

@@ -8,15 +8,15 @@
 
       <!-- Sidebar -->
       <div class="sidebar">
-          <!-- Sidebar user panel (optional) -->
+          <!-- Sidebar user panel (optional) Auth::guard('admin')->user()->image -->
           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
               <div class="image">
-                  <img src="{{ asset('images/admin_images/' . Auth::guard('admin')->user()->image) }}"
+                  <img src="{{ asset('images/admin_images/' . Auth::user()->image) }}"
                       class="rounded-circle" style="width:40px;height:40px;">
               </div>
               <div class="info">
                   <a href="{{ url('/admin/dashboard') }}"
-                      class="d-block">{{ Auth::guard('admin')->user()->name }}</a>
+                      class="d-block">{{ Auth::user()->name }}</a>
               </div>
           </div>
 

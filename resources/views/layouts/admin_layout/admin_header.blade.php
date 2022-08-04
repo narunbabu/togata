@@ -17,7 +17,7 @@
 
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
-        <i class="fas fa-th-large"> {{Auth::guard('admin')->user()->name}} </i>
+        <i class="fas fa-th-large"> {{Auth::user()->name}} </i>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <a class="nav-link" href="{{url('/admin/logout')}}" role="button">Log Out

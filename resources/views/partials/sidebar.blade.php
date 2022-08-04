@@ -522,7 +522,9 @@
             </li>
 
             <li>
-                <a href="#logout" onclick="$('#logout').submit();">
+
+
+                <a href="{{url('/logout')}}" >
                     <i class="fa fa-arrow-left"></i>
                     <span class="title">@lang('quickadmin.qa_logout')</span>
                 </a>

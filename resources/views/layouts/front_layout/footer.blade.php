@@ -44,8 +44,8 @@
                 </div>
                 <div class="col-md-12">
                     <div class="newtt">
-                        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point
-                            <br> of using Lorem I</p>
+                        <p>Give your mail if you want to recieve daily news letter on the update of contents.  
+                            <br> And the new additions to the website.</p>
                     </div>
                 </div>
             </div>
@@ -53,7 +53,7 @@
         </div>
       
         <div class="copyright">
-            <p>Copyright @ 2021 All Right Reserved By <a href="https://www.linkedin.com/in/saieedulmahin/">Saieedul Hasan Mahin</a></p>
+            <p>Copyright @ 2022 All Right Reserved By <a href="https://www.linkedin.com/in/nalamara/">Arun Babu Nalamara</a></p>
         </div>
 
  </div>
