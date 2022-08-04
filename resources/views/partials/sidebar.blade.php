@@ -13,6 +13,12 @@
                     <span class="title">@lang('quickadmin.qa_dashboard')</span>
                 </a>
             </li> --}}
+            <li>
+                <a href="{{url('/')}}" >
+                        <i class="fa fa-home"></i>
+                        <span class="title">@lang('quickadmin.qa_home')</span>
+                    </a>
+                </li>
 
             <!-- for OFFICE-MANAGEMENT-->
             @can('office_management_access')
@@ -25,6 +31,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
+
                     @can('attendance_access')
                         <li class="treeview {{ $request->segment(2) == 'attendance'
                         | $request->segment(2) == 'addAttendance' | $request->segment(2) == 'search' | $request->segment(2) == 'attendances' 
