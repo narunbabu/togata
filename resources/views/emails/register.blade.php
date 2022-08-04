@@ -8,9 +8,9 @@
                 <td>Dear {{$name}},</td>
             </tr>
             <tr>
-                <td>Assalamu Alaikum ,Hello User Congratulations!! Your Account Is Activated Successfully!
+                <td>Jai Chowdeswari mata ,Congratulations!! Your Account Is Activated Successfully!
                     <br> 
-                    Thank You For Registration. I Hope You Can Loved Our All Products. So Here's your Some Informations below.</td>
+                    Thank You For Registration. I Hope You will enjoy the journey with our community.</td>
             </tr>
             <tr>
                 <td>&nbsp;</td>

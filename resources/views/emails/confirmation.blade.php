@@ -8,7 +8,7 @@
                 <td>Dear {{$name}},</td>
             </tr>
             <tr>
-                <td>Assalamu Alaikum, Thank You For Register in Our Website. Now, Please Click On "Confirmation Link" For Activate Your Account : </td>
+                <td>Jai Chowdeswari Mata, Thank You For your interest in joining our community. Now, Please Click On "Confirmation Link" For Activate Your Account : </td>
             </tr>
             <tr>
                 <td>&nbsp;</td>

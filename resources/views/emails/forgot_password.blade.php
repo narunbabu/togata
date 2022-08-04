@@ -8,7 +8,7 @@
                 <td>Dear {{$name}},</td>
             </tr>
             <tr>
-                <td>Assalamu Alaikum,
+                <td>Jai Chowdeswari mata,
                     <br>
                 You Have Requested To Recover Your Password. Here's Your New Password is as Blow:  </td>
             </tr>
