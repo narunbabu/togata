@@ -19,13 +19,14 @@
                         <ul>
                             @if(Auth::check())
                             <li>
-                              {{Auth::user()->name}} 
+                               
+                              <a href="{{url('/admin/home')}}" style="color: rgb(15, 15, 15)">{{Auth::user()->name}}</a>
                             </li>
                             <li class="tytyu">
                                 <a href="{{url('/')}}"><img style="margin-right: 15px;" src="{{asset('icon/2.png')}}" alt="#" /></a>
                             </li>
                             <li>
-                                <a href="{{url('/')}}"><img style="margin-right: 15px;" src="{{asset('icon/3.png')}}" alt="#" /></a>
+                                <a href="{{url('/admin/home')}}"><img style="margin-right: 15px;" src="{{asset('icon/3.png')}}" alt="#" /></a>
                             </li>
                             <li>
                                 <a href="{{url('/logout')}}" style="color: rgb(240, 15, 15)">Log Out</a>

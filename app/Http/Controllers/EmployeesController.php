@@ -22,6 +22,15 @@ class EmployeesController extends Controller
         // }
     }
 
+    public function index2(Request $request){
+
+        //  return
+            $employees = DB::table('users')->get();
+                return view('admin.employees.index', ['employees' => $employees]);
+                
+
+        }
+
     public function addEmployee(Request $request){
 
         return view('admin.employees.addEmployee');

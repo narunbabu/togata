@@ -20,6 +20,34 @@
                     </a>
                 </li>
 
+                @can('census_access')
+                    <li class="{{ $request->segment(2) == 'censuses' | $request->segment(2) == 'addcensuses'
+                    ? 'active active-sub' : '' }}">
+                        <a href="#">
+                            <i class="fa fa-user"></i>
+                            <span class="title">@lang('quickadmin.census.title')</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                    
+                        <ul class="treeview-menu">
+                            @can('list_census_access')
+                            <li class="{{ $request->segment(2) == 'censuses' ? 'active active-sub' : '' }}">
+                                <a href="{{ route('employee') }}">
+                                    <i class="fa fa-user"></i>
+                                    <span class="title">
+                                        @lang('quickadmin.listcensus.title')
+                                    </span>
+                                </a>
+                            </li>
+                            @endcan 
+
+                           
+                        </ul> {{-- --}}
+                    </li>
+                    @endcan 
+
             <!-- for OFFICE-MANAGEMENT-->
             @can('office_management_access')
             <li class="treeview">
@@ -31,6 +59,9 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
+
+                    
+
 
                     @can('attendance_access')
                         <li class="treeview {{ $request->segment(2) == 'attendance'
@@ -325,16 +356,7 @@
                     </li>
                     @endcan
 
-                    @can('currency_access')
-                    <li class="{{ $request->segment(2) == 'currencies' ? 'active active-sub' : '' }}">
-                        <a href="{{ route('admin.currencies.index') }}">
-                            <i class="fa fa-gears"></i>
-                            <span class="title">
-                                @lang('quickadmin.currency.title')
-                            </span>
-                        </a>
-                    </li>
-                    @endcan
+
                 </ul>
             </li>
             @endcan

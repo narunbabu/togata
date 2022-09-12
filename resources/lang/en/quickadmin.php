@@ -91,7 +91,7 @@ return [
 			'created-by' => 'Created by',
 		],
 	],
-
+	
 	'office-management' => [
 		'title' => 'Office management',
 		'fields' => [
@@ -136,23 +136,43 @@ return [
 			'title' => 'Title',
 		],
 	],
+	'census' => [
+		'title' => 'Census',
+		'fields' => [
+			'title' => 'Title',
+			'created-by' => 'Created by',
+		],
+	],
+	'listcensus' => [
+		'title' => 'List of TogataVeera',
+		'fields' => [
+			'title' => 'Title',
+		],
+	],
+	'addcensus' => [
+		'title' => 'Add a TogataVeera',
+		'fields' => [
+			'title' => 'Title',
+		],
+	],
+
 
 	'employees' => [
-		'title' => 'Employees',
+		'title' => 'TogataVeerulu',
 		'fields' => [
 			'title' => 'Title',
 		],
 	],
 
 	'listemployees' => [
-		'title' => 'List of Employees',
+		'title' => 'List of TogataVeera',
 		'fields' => [
 			'title' => 'Title',
 		],
 	],
 
 	'addemployees' => [
-		'title' => 'Add Employee',
+		'title' => 'Add a TogataVeera',
 		'fields' => [
 			'title' => 'Title',
 		],

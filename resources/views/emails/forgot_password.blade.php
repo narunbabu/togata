@@ -10,7 +10,7 @@
             <tr>
                 <td>Jai Chowdeswari mata,
                     <br>
-                You Have Requested To Recover Your Password. Here's Your New Password is as Blow:  </td>
+                You Have Requested To Recover Your Password. Here's Your New Password is as Below:  </td>
             </tr>
             <tr>
                 <td>&nbsp;</td>

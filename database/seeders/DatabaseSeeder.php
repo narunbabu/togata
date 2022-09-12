@@ -33,19 +33,25 @@ class DatabaseSeeder extends Seeder
         $roles = [
             
             ['id' => 1, 'title' => 'Administrator (can create other users)',],
-            ['id' => 2, 'title' => 'Simple user',],
+            ['id' => 2, 'title' => 'User with full rights',],
+            ['id' => 3, 'title' => 'Volunteer',],
+            ['id' => 4, 'title' => 'Previlized user',],
+            ['id' => 5, 'title' => 'Simple user',],
 
         ];
         $correncies = [
             
-            ['id' => 1, 'title' => 'INR', 'symbol' => '₹', 'money_format_thousands' => ',', 'money_format_decimal' => '.', 'created_by_id' => 1],
-            ['id' => 2, 'title' => 'USD', 'symbol' => '$', 'money_format_thousands' => '.', 'money_format_decimal' => ',', 'created_by_id' => 1],
-            ['id' => 3, 'title' => 'EUR', 'symbol' => '€', 'money_format_thousands' => '.', 'money_format_decimal' => ',', 'created_by_id' => 1],
+            ['id' => 1, 'title' => 'INR', 'symbol' => '₹', 'money_format_thousands' => ',', 'money_format_decimal' => '.'],
+            ['id' => 2, 'title' => 'USD', 'symbol' => '$', 'money_format_thousands' => '.', 'money_format_decimal' => ','],
+            ['id' => 3, 'title' => 'EUR', 'symbol' => '€', 'money_format_thousands' => '.', 'money_format_decimal' => ','],
 
         ];
         $adminRecords=[
             ['id'=>1,'name'=>'Super admin','type'=>'admin','mobile'=>'8800197778',
             'email'=>'ab@ameyem.com','password'=>bcrypt('ab@123'),
+            'image'=>'','status'=>1],
+            ['id'=>2,'name'=>'Arun','type'=>'admin','mobile'=>'8800197777',
+            'email'=>'admin@ameyem.com','password'=>bcrypt('admin@123'),
             'image'=>'','status'=>1],
 
         ];
