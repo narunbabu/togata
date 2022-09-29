@@ -201,6 +201,8 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('list_attendance_access', function ($user) {
             return in_array($user->role_id, [1]);
         });
+
+
         // Auth gates for: Employees
         Gate::define('census_access', function ($user) {
             return in_array($user->role_id, [1,2,3]);
@@ -213,6 +215,66 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('add_census_access', function ($user) {
             return in_array($user->role_id, [1,2,3]);
         });
+
+
+
+        // Auth gates for: Employees
+        Gate::define('villages_access', function ($user) {
+            return in_array($user->role_id, [1,2,3,4,5]);
+        });
+        // Auth gates for: List of Employee
+        Gate::define('list_villages_access', function ($user) {
+            return in_array($user->role_id, [1,2,3,4,5]);
+        });
+        // Auth gates for: Add Employee
+        Gate::define('village_create', function ($user) {
+            return in_array($user->role_id, [1,2,3]);
+        });
+        // Auth gates for: Add Employee
+        Gate::define('village_edit', function ($user) {
+            return in_array($user->role_id, [1,2,3]);
+        });
+        // Auth gates for: Add Employee
+        Gate::define('village_delete', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+
+        // Auth gates for: Add Employee
+        Gate::define('village_view', function ($user) {
+            return in_array($user->role_id, [1,2,3,4,5]);
+        });
+
+
+        
+        // Auth gates for: Employees
+        Gate::define('person_access', function ($user) {
+            return in_array($user->role_id, [1,2,3,4,5]);
+        });
+        // Auth gates for: List of Employee
+        Gate::define('list_person_access', function ($user) {
+            return in_array($user->role_id, [1,2,3,4,5]);
+        });
+        // Auth gates for: Add Employee
+        Gate::define('person_create', function ($user) {
+            return in_array($user->role_id, [1,2,3]);
+        });
+        // Auth gates for: Add Employee
+        Gate::define('person_edit', function ($user) {
+            return in_array($user->role_id, [1,2,3]);
+        });
+        // Auth gates for: Add Employee
+        Gate::define('person_delete', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+
+        // Auth gates for: Add Employee
+        Gate::define('person_view', function ($user) {
+            return in_array($user->role_id, [1,2,3,4,5]);
+        });
+
+
+
+        
 
         // Auth gates for: Employees
         Gate::define('employee_access', function ($user) {

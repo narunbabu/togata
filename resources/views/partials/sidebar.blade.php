@@ -24,7 +24,7 @@
                     <li class="{{ $request->segment(2) == 'censuses' | $request->segment(2) == 'addcensuses'
                     ? 'active active-sub' : '' }}">
                         <a href="#">
-                            <i class="fa fa-user"></i>
+                            <i class="fa fa-users"></i>
                             <span class="title">@lang('quickadmin.census.title')</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
@@ -32,12 +32,22 @@
                         </a>
                     
                         <ul class="treeview-menu">
-                            @can('list_census_access')
+                            @can('list_person_access')
                             <li class="{{ $request->segment(2) == 'censuses' ? 'active active-sub' : '' }}">
-                                <a href="{{ route('employee') }}">
+                                <a href="{{ route('admin.people.index') }}">
                                     <i class="fa fa-user"></i>
                                     <span class="title">
-                                        @lang('quickadmin.listcensus.title')
+                                        @lang('quickadmin.people.title')
+                                    </span>
+                                </a>
+                            </li>
+                            @endcan 
+                            @can('list_villages_access')
+                            <li class="{{ $request->segment(2) == 'villages' ? 'active active-sub' : '' }}">
+                                <a href="{{ route('admin.villages.index') }}">
+                                    <i class="fa fa-list"></i>
+                                    <span class="title">
+                                        @lang('quickadmin.listvillages.title')
                                     </span>
                                 </a>
                             </li>

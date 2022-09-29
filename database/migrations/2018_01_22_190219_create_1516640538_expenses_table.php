@@ -15,10 +15,12 @@ class Create1516640538ExpensesTable extends Migration
         if(! Schema::hasTable('expenses')) {
             Schema::create('expenses', function (Blueprint $table) {
                 $table->increments('id');
+                $table->string('name')->nullable();
                 $table->date('entry_date')->nullable();
                 $table->string('amount');
                 $table->unsignedInteger('currency_id')->nullable();
                 $table->unsignedInteger('created_by_id')->nullable();
+                $table->string('comment')->nullable();
                 
                 $table->timestamps();
                 

@@ -1,8 +1,11 @@
 <?php
 
+namespace Database\Seeders;
+
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class UserSeed extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +18,8 @@ class UserSeed extends Seeder
         $items = [
             
             
-            ['id' => 1, 'name' => 'Admin', 'email' => 'ab@ameyem.com', 'password' =>bcrypt('arun@123'), 'role_id' => 1, 'remember_token' => '', 'currency_id' => 1],
+            ['id'=>1,'name'=>'Arun Nalamara','mobile'=>'8800197778','address'=>'he',
+            'email'=>'ab@ameyem.com','password'=>bcrypt('ab@123'),'status'=>1,'role_id'=>1],
 
         ];
 

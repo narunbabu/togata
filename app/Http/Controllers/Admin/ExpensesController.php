@@ -34,7 +34,8 @@ class ExpensesController extends Controller
         // $expenses=DB::table('expenses')->get();
 
                 $expenses = Expense::all();
-                // return $expenses;
+                return $expenses;
+                return $expenses[0]->expense_category->name;
         return view('admin.expenses.index', compact('expenses'));
     }
 

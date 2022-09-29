@@ -3,6 +3,7 @@
 
 @section('content')
     <h3 class="page-title">@lang('quickadmin.expense.title')</h3>
+    
     @can('expense_create')
     <p>
         <a href="{{ route('admin.expenses.create') }}" class="btn btn-success">@lang('quickadmin.qa_add_new')</a>
@@ -22,8 +23,15 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             @lang('quickadmin.qa_list')
+            <!-- @foreach ($expenses as $expense)
+            <p>{{ $expense->id }}</p>
+            <p>{{ $expense->name  }}</p>
+            <p>{{ $expense->expense_category->name }}</p>
+            <p>{{ $expense->entry_date  }}</p>
+            <p>{{ $expense->comment }}</p>
+            @endforeach -->
         </div>
-
+        
         <div class="panel-body table-responsive">
             <table class="table table-bordered table-striped {{ count($expenses) > 0 ? 'datatable' : '' }} @can('expense_delete') dt-select @endcan">
                 <thead>
@@ -49,10 +57,10 @@
                                 @can('expense_delete')
                                     <td></td>
                                 @endcan
-                                <td field-key='expense_name'>{{ $expense->name or '' }}</td>
-                                <td field-key='expense_category'>{{ $expense->expense_category->name or '' }}</td>
+                                <td field-key='expense_name'>{{ $expense->name }}</td>
+                                <td field-key='expense_category'>{{ $expense->expense_category->name  }}</td>
                                 <td field-key='entry_date'>{{ $expense->entry_date }}</td>
-                                <td field-key='amount'>{{ $expense->expense_currency->symbol  . ' ' . number_format($expense->amount, 2, $expense->expense_currency->money_format_decimal, $expense->expense_currency->money_format_thousands) }}</td>
+                                <td field-key='entry_date'>{{ $expense->amount }}</td>
                                 <td field-key='comment'>{{ $expense->comment }}</td>
                                 
                                 <td>
@@ -63,7 +71,7 @@
                                     <a href="{{ route('admin.expenses.edit',[$expense->id]) }}" class="btn btn-xs btn-info">@lang('quickadmin.qa_edit')</a>
                                     @endcan
                                     @can('expense_delete')
-{!! Form::open(array(
+                                    {!! Form::open(array(
                                         'style' => 'display: inline-block;',
                                         'method' => 'DELETE',
                                         'onsubmit' => "return confirm('".trans("quickadmin.qa_are_you_sure")."');",

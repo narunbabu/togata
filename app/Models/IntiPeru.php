@@ -1,10 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class IntiPeru extends Model
+class Intiperu extends Model
 {
-    protected $fillable = ['id','name','gotram_id'];
+    use HasFactory;
+    protected $fillable = ['id', 'name'];
 }

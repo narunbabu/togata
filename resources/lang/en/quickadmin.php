@@ -144,7 +144,7 @@ return [
 		],
 	],
 	'listcensus' => [
-		'title' => 'List of TogataVeera',
+		'title' => 'List of People',
 		'fields' => [
 			'title' => 'Title',
 		],
@@ -156,22 +156,54 @@ return [
 		],
 	],
 
-
-	'employees' => [
-		'title' => 'TogataVeerulu',
+	'villages' => [
+		'title' => 'Villages',
+		'fields' => [
+			'name' => 'Village Name',
+			'created-by' => 'Created by',
+		],
+	],
+	'listvillages' => [
+		'title' => 'List of Villages',
 		'fields' => [
 			'title' => 'Title',
 		],
 	],
 
-	'listemployees' => [
+
+	'people' => [
+		'title' => 'TogataVeerulu',
+		'fields' => [
+			'ward_no'=>'Ward Number',
+			'house_no'=>'House/Door Number',			
+			'intiperu'=>'Surname',
+			'peru'=>'Name',
+			'father_husb_name'=>'Father/Husband Name',
+			'gender'=>'Gender',
+			'dob'=>'Date Of Birth',
+			'edu_qualification'=>'Education',
+			'profession'=>'Profession',
+			'aadhaar'=>'Aadhaar Card Number',
+			'ration_card'=>'Ration card Number',
+			'pensoner_type'=>'Under which pension scheme?',
+			'own_or_rent'=>'Own house/On rent',
+			'vehicle'=>'Vehicle owned',
+			'agri_land'=>'Own Agriculture Land?',
+			'land_area'=>'Land area owned',
+			'contact'=>'Contact Number',
+			'create'=>'New Person',
+			'title' => 'Title',
+		],
+	],
+
+	'listpeople' => [
 		'title' => 'List of TogataVeera',
 		'fields' => [
 			'title' => 'Title',
 		],
 	],
 
-	'addemployees' => [
+	'addperson' => [
 		'title' => 'Add a TogataVeera',
 		'fields' => [
 			'title' => 'Title',
