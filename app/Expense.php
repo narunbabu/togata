@@ -13,6 +13,7 @@ use App\Traits\FilterByUser;
  * @property string $entry_date
  * @property string $amount
  * @property string $created_by
+ * Hello there change for git
 */
 class Expense extends Model
 {
