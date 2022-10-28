@@ -5,33 +5,30 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Hash;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 
-/**
- * Class User
- *
- * @package App
- * @property string $name
- * @property string $email
- * @property string $password
- * @property string $role
- * @property string $remember_token
-*/
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
+// class User extends Authenticatable
 {
     use Notifiable;
-    protected $fillable = ['name', 'email', 'password', 'remember_token', 'role_id', 'currency_id','username','position','admin'];
+    protected $fillable = ['surname','name', 'email','mobile','password',
+     'role_id', 'currency_id','username','position','admin','editing_village_id'];
+     protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
     
-    
-    
-    /**
-     * Hash password
-     * @param $input
-     */
-    public function setPasswordAttribute($input)
-    {
-        if ($input)
-            $this->attributes['password'] = app('hash')->needsRehash($input) ? Hash::make($input) : $input;
-    }
+
+    // public function setPasswordAttribute($input)
+    // {
+    //     if ($input)
+    //         $this->attributes['password'] = app('hash')->needsRehash($input) ? Hash::make($input) : $input;
+    // }
     
 
     /**
@@ -56,6 +53,16 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
        $this->notify(new ResetPassword($token));
+    }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
     
 }

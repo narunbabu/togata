@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\User;
+// use App\Models\User;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -18,6 +19,8 @@ class UserController extends Controller
     }
 
     public function registerUser(Request $request){
+        $url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        // return $url;
         // error_log('Some message here.');
         if($request->isMethod('post')){
             Session::forget('error_message');
@@ -25,6 +28,7 @@ class UserController extends Controller
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
             $rules=[
+                'surname'=>'required|regex:/^[\pL\s\-]+$/u',
                 'name'=>'required|regex:/^[\pL\s\-]+$/u',
                 'mobile'=>'required|numeric|digits:11',
                 'email'=> 'required|email|max:255',
@@ -34,6 +38,8 @@ class UserController extends Controller
                 
             ];
             $customMessages=[
+                'surname.required'=>'Surname is Required',
+                'surname.alpha'=>'Valid Name is Required',
                 'name.required'=>'Name is Required',
                 'name.alpha'=>'Valid Name is Required',
                 'mobile.required'=>'Mobile No. is Required',
@@ -51,15 +57,21 @@ class UserController extends Controller
             if($userCount>0){
                 $message="Email Already Exists!";
                 Session::flash('error_message',$message);
-                return redirect()->back(); 
+                // return redirect()->back(); 
+                if(strpos($url, 'api') !== false){
+                    return $message;}
+                else{
+                    return redirect()->back();
+                }
             }
             else{
                 $user = new User;
+                $user->surname=$data['surname'];
                 $user->name=$data['name'];
                 $user->email=$data['email'];
                 $user->mobile=$data['mobile'];
                 $user->password=bcrypt($data['password']);
-                $user->address="";
+                // $user->address="";
                 $user->status=0;
                 $user->save();
 
@@ -70,18 +82,33 @@ class UserController extends Controller
                     'name'=>$data['name'],
                     'code'=>base64_encode($data['email'])
                 ];
-                Mail::send('emails.confirmation',$messageData,function($message) use($email){
-                $message->to($email)->subject('Confirm Your Email Account for Registration');
-                });
+
+                
+                if(strpos($url, ':8000') !== false){
+                   
+                }
+                else{
+                    Mail::send('emails.confirmation',$messageData,function($message) use($email){
+                        $message->to($email)->subject('Confirm Your Email Account for Registration');
+                        });
+                }
+
+                
 
                 // Redirect Back With Success Message
 
                 $message="Please Check Your Email For Confirmation to Activate Your Account!";
                 Session::put('success_message',$message);
-                return redirect()->back();
+
+                if(strpos($url, 'api') !== false){
+                    return ['message'=>$message];
+                }
+                else{
+                    return redirect()->back();
+                }
 
                 // if(Auth::attempt(['email'=>$data['email'],'password'=>$data['password']])){
-                //     // echo "<pre>"; print_r(Auth::User()); die;
+                //     // echo "<pre>"'; print_r(Auth::User()); die;
                 //     if(!empty(Session::get('session_id'))){
                 //         $user_id = Auth::user()->id;
                 //         $session_id = Session::get('session_id');
@@ -140,6 +167,7 @@ class UserController extends Controller
     }
 
     public function loginUser(Request $request){
+        // return $request;
         // print($request);
         
         if($request->isMethod('post')){
@@ -148,14 +176,14 @@ class UserController extends Controller
             $data = $request->all();
             // $databaseName = \DB::connection()->getDatabaseName();
 
-            // return $databaseName  ;
+
 
 
             if(Auth::attempt(['email'=>$data['email'],'password'=>$data['password']])){
                 // Session::flash('error_message','Invalid Email or Password!');
                 //Check Email is Activator or Not
                 $userStatus = User::where('email',$data['email'])->first();
-
+                // 
                 if($userStatus->status==0){
                     Auth::logout();
                     $message = "Your Account is Not Activated Yet! Please Confirm Your Email to Activate!";
@@ -163,12 +191,14 @@ class UserController extends Controller
                     return redirect()->back();
                 }
                 
-                // if(!empty(Session::get('session_id'))){
-                //     $user_id = Auth::user()->id;
-                //     $session_id = Session::get('session_id');
-                //     Cart::where('session_id',$session_id)->update(['user_id'=>$user_id]);
-                // }
-                return redirect('/admin/home');
+                if(!empty(Session::get('session_id'))){
+                    $user_id = Auth::user()->id;
+                    $session_id = Session::get('session_id');
+                    Cart::where('session_id',$session_id)->update(['user_id'=>$user_id]);
+                }
+                // return $userStatus;
+                // return redirect('/admin/home');
+                return view('home');
             }else{
                 // return $data ;
                 $message="Invalid Email or Password!"; //$data['password'];//

@@ -18,8 +18,9 @@ return [
 	'users' => [
 		'title' => 'Users',
 		'fields' => [
+			'surname' => 'Surname',
 			'name' => 'Name',
-			'email' => 'Email',
+			'email' => 'Email ok',
 			'password' => 'Password',
 			'role' => 'Role',
 			'remember-token' => 'Remember token',

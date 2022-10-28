@@ -18,8 +18,10 @@ class UserSeeder extends Seeder
         $items = [
             
             
-            ['id'=>1,'name'=>'Arun Nalamara','mobile'=>'8800197778','address'=>'he',
-            'email'=>'ab@ameyem.com','password'=>bcrypt('ab@123'),'status'=>1,'role_id'=>1],
+            ['id'=>1,'surname'=>'Nalamara','name'=>'Arun ','mobile'=>'8800197778',
+            'email'=>'ab@ameyem.com','password'=>bcrypt('ab@123'),'status'=>1,'role_id'=>1,'editing_village_id'=>1],
+            ['id'=>2,'surname'=>'Nalamara','name'=>'Arun ','mobile'=>'8800197778',
+            'email'=>'ab2@ameyem.com','password'=>bcrypt('arun123'),'status'=>1,'role_id'=>1,'editing_village_id'=>1],
 
         ];
 

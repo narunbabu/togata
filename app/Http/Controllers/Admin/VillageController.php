@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Input;
 use App\Http\Requests\Admin\StoreVillageRequest;
 class VillageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['login','register']]);
+    }
     /**
      * Display a listing of ExpenseCategory.
      *
@@ -59,16 +63,44 @@ class VillageController extends Controller
      * @param  \App\Http\Requests\StoreVillageRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreVillageRequest $request)
+    function console_log($output, $with_script_tags = true) {
+        $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) . 
+    ');';
+        if ($with_script_tags) {
+            $js_code = '<script>' . $js_code . '</script>';
+        }
+        echo $js_code;
+    }
+    public function store(Request $request)
+
     {
-        if (! Gate::allows('village_create')) {
+        // echo "on the command line";
+        return $request;
+        $user=Auth::user();
+        // return $user;
+        // return response()->json(Auth::user());
+        // $post_data = $request->all();
+        // return $post_data;
+        // if ($user->tokenCan('post:update'))
+        if (! Gate::allows('village_create')) 
+        {
             return abort(401);
         }
+        // {
         // return $request->all()+ ['created_by_id' => Auth::user()->id];
-        $village = Village::create($request->all()+ ['created_by_id' => Auth::user()->id]);
+        try{
+           Village::create($request->all()+ ['created_by_id' => $user->id]);
+        }catch(\Illuminate\Database\QueryException $e){
+            return ['error'=>$e->getMessage()];
+        }
+        
+        // return $request->name;
+        return response()->json(Village::where('name', $request->name)->first());
+        // return Village::get()->where($request->name);
+        // }
 
-
-        return redirect()->route('admin.villages.index');
+        // return 'not done';
+        // return redirect()->route('admin.villages.index');
     }
 
 
@@ -118,18 +150,25 @@ class VillageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
+        // return $request;
         if (! Gate::allows('village_view')) {
             return abort(401);
         }
         
-        $created_bies = \App\User::get()->pluck('name', 'id')->prepend(trans('quickadmin.qa_please_select'), '');
-        $expenses = \App\Expense::where('village_id', $id)->get();
+        // $created_bies = \App\User::get()->pluck('name', 'id')->prepend(trans('quickadmin.qa_please_select'), '');
+        // $expenses = \App\Expense::where('village_id', $id)->get();
 
-        $village = Village::findOrFail($id);
+        // $village = Village::findOrFail($request->id);
+        
+        // return response()->json($village);
 
-        return view('admin.villages.show', compact('village', 'expenses'));
+        $data['village'] = Village::where("id",$request->id)->first(["name", "id"]);
+        
+        return response()->json($data);
+
+        // return view('admin.villages.show', compact('village', 'expenses'));
     }
 
 

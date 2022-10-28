@@ -5,7 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use DB;
 use App\Models\Admin;
-use App\Models\User;
+// use App\Models\User;
+// use App\User;
 use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;

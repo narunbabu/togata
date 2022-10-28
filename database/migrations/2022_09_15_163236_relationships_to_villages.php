@@ -17,9 +17,14 @@ return new class extends Migration
             if (!Schema::hasColumn('name','mandal_id')) {
                 // $table->unsignedBigInteger('mandal_id');
                 $table->foreignId('mandal_id')->references('id')->on('mandals')->onDelete('cascade');
+                $table->unique('name', 'mandal_id');
                 
                 }
         });
+       
+
+       
+
         Schema::table('villages', function(Blueprint $table) {
             if (!Schema::hasColumn('name', 'created_by_id')) {
                 $table->foreignId('created_by_id')->references('id')->on('users')->onDelete('cascade');

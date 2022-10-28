@@ -9,6 +9,19 @@
                     <div class="panel-body">
                         <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
                             {{ csrf_field() }}
+                            <div class="form-group{{ $errors->has('surname') ? ' has-error' : '' }}">
+                                <label for="surname" class="col-md-4 control-label">@lang('quickadmin.qa_surname')</label>
+
+                                <div class="col-md-6">
+                                    <input id="surname" type="text" class="form-control" name="surname" value="{{ old('surname') }}" required autofocus>
+
+                                    @if ($errors->has('surname'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('surname') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
 
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                 <label for="name" class="col-md-4 control-label">@lang('quickadmin.qa_name')</label>

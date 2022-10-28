@@ -34,7 +34,7 @@
                 <td>Thank You & Regards,</td>
             </tr>
             <tr>
-                <td>team E-Commerce</td>
+                <td>team Togata Veera</td>
             </tr>
         </table>
     </body>

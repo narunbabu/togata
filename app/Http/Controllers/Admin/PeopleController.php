@@ -49,6 +49,14 @@ class PeopleController extends Controller
         return view('admin.people.index', compact('people'));
     }
 
+    public function printPeople(){
+        $people = Person::all();
+        // return $people;
+        $people=dbarray2optionarray($people);
+        return compact('people');
+
+    }
+
     /**
      * Show the form for creating new ExpenseCategory.
      *

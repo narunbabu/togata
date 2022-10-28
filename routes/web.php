@@ -5,6 +5,9 @@ use App\Http\Controllers\Admin\VillageController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\StateMandalController;
 use App\Http\Controllers\Admin\PeopleController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\HomeController;
 Route::get('/', function () {
     return view('home.index');
 });
@@ -12,17 +15,20 @@ Route::get('/', function () {
 
 // Auth::routes();
 Route::get('/login-register', ['as'=>'login','uses'=> 'App\Http\Controllers\UserController@loginRegister']);
-Route::post('/login', [App\Http\Controllers\UserController::class, 'loginUser']);
-Route::post('/register', [App\Http\Controllers\UserController::class, 'registerUser']);
+Route::post('/login2', [UserController::class, 'loginUser']);
+// Route::controller(AuthController::class)->group(function () {
+//     Route::post('login2', 'login');
+// });
+Route::post('/register', [UserController::class, 'registerUser']);
 
 Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('auth.logout');
 // Confirm Account
-Route::get('/confirm/{code}',[App\Http\Controllers\UserController::class, 'confirmAccount']);
-Route::post('/confirm/{code}',[App\Http\Controllers\UserController::class, 'confirmAccount']);
+Route::get('/confirm/{code}',[UserController::class, 'confirmAccount']);
+Route::post('/confirm/{code}',[UserController::class, 'confirmAccount']);
 
 // Forgot Password
-Route::get('/forgot/password',[App\Http\Controllers\UserController::class, 'forgotPassword']);
-Route::post('/forgot/password',[App\Http\Controllers\UserController::class, 'forgotPassword']);
+Route::get('/forgot/password',[UserController::class, 'forgotPassword']);
+Route::post('/forgot/password',[UserController::class, 'forgotPassword']);
 
 
 // Route::get('change_password', 'Auth\ChangePasswordController@showChangePasswordForm')->name('auth.change_password');
@@ -34,7 +40,8 @@ Route::patch('change_password',[App\Http\Controllers\Auth\ChangePasswordControll
     // Route::get('api/fetch-states', [StateMandalController::class, 'fetchState']);
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
-    Route::get('/home', 'HomeController@index');
+    // Route::get('/home', 'HomeController@index');
+    Route::get('/home', [HomeController::class, 'index']);
     Route::resource('posts', PostController::class);
     Route::resource('villages', VillageController::class);
     Route::resource('people', PeopleController::class);

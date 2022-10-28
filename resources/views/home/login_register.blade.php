@@ -50,7 +50,11 @@
                     <form class="main_form" id="registerValidate" name="registerValidate"
                         action="{{ url('/register') }}" method="post">
                         @csrf
-                        <div class="row">
+                        <div class="row" >
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                <label for="surname">Surname</label>
+                                <input class="form-control" placeholder="Enter Surname" type="text" name="surname" id="surname">
+                            </div>
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                                 <label for="name">Name</label>
                                 <input class="form-control" placeholder="Enter Name" type="text" name="name" id="name">
@@ -77,7 +81,7 @@
                 </div>
                 <div class="col-md-6">
                     <h1 style="color: red">Log In Here</h1>
-                    <form class="main_form" id="loginForm" name="loginForm" action="{{ url('/login') }}" method="post">
+                    <form class="main_form" id="loginForm" name="loginForm" action="{{ url('/login2') }}" method="post">
                         @csrf
                         <div class="row">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">

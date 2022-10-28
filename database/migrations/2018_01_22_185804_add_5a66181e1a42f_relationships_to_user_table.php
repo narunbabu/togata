@@ -19,6 +19,8 @@ class Add5a66181e1a42fRelationshipsToUserTable extends Migration
                 }
                 
         });
+
+        
     }
 
     /**

@@ -41,12 +41,13 @@ class DatabaseSeeder extends Seeder
         CurrencySeed::class,
         RoleSeeder::class,
         // IntiperuSeeder::class,
-        UserSeeder::class,        
-        PersonSeed::class,
+        UserSeeder::class, 
         StateSeeder::class,
         DistrictSeeder::class,
         MandalSeeder::class,        
         VillageSeeder::class,
+               
+        PersonSeed::class,
         PersonRelatedTableSeeder::class,
         
         

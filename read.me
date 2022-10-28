@@ -1,17 +1,41 @@
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php -r "if (hash_file('sha384', 'composer-setup.php') === '55ce33d7678c5a611085589f1f3ddf8b3c52d662cd01d4ba75c0ee0459970c2200a51f492d557530c71c15d8dba01eae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+php composer-setup.php
+php -r "unlink('composer-setup.php');"
+
 composer create-project laravel/laravel togata1 4.2.*
 
 composer create-project laravel/laravel example-app
 
 composer update --with-all-dependencies
 
+### https://blog.logrocket.com/implementing-jwt-authentication-laravel-9/
+
 composer require barryvdh/laravel-cors jrean/laravel-user-verification tymon/jwt-auth
+
+#JWT config
+php composer.phar require php-open-source-saver/jwt-auth laravel/telescope
+php artisan vendor:publish --provider="PHPOpenSourceSaver\JWTAuth\Providers\LaravelServiceProvider"
+php artisan jwt:secret
+
+in config/auth.php
+'api' => [
+            'driver' => 'jwt',
+            'provider' => 'users',
+        ],
+
+php artisan make:controller Auth/AuthController
+
+php artisan key:generate
+php artisan config:cache
+
 
 php artisan make:model Post -m
 php artisan migrate
 php artisan make:controller PostController
 php artisan make:controller CenusController
 composer dump-autoload
-
+php composer.phar dump-autoload
 php artisan make:migration create_employeeDetails_table
 
 php artisan serve --port=8080
