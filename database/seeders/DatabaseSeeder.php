@@ -13,6 +13,7 @@ use App\Model\State;
 use App\Models\Admin;
 use Carbon\Carbon;
 
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -49,6 +50,8 @@ class DatabaseSeeder extends Seeder
                
         PersonSeed::class,
         PersonRelatedTableSeeder::class,
+        HouseDetailsTableSeeder::class,
+
         
         
     ]);
