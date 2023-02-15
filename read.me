@@ -180,13 +180,17 @@ curl -sS https://getcomposer.org/installer | /opt/php70/bin/php
 ssh -p 65002 u441069787@141.136.33.134
 curl -sS https://getcomposer.org/installer | /opt/alt/php81/usr/bin/php
 
+curl -sS https://getcomposer.org/installer | /opt/alt/php80/usr/bin/php
+
 /opt/alt/php81/usr/bin/php composer.phar install
+/opt/alt/php80/usr/bin/php composer.phar install
 /opt/alt/php81/usr/bin/php composer.phar dump-autoload
 
 /opt/alt/php81/usr/bin/php composer.phar clear-cache
 /opt/alt/php81/usr/bin/php artisan optimize
 /opt/alt/php81/usr/bin/php artisan migrate:reset
 /opt/alt/php81/usr/bin/php artisan migrate --seed
+/opt/alt/php80/usr/bin/php
 cd togata.org/public_html/
 mv -r ~/domains/togata.org/togatagit/public/. .
 cp -r ~/domains/togata.org/togata/public/. .
