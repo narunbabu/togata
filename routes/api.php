@@ -7,27 +7,34 @@ use App\Http\Controllers\Admin\StateMandalController;
 use App\Http\Controllers\Admin\PeopleController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\AuthControllertest;
+use App\Http\Controllers\Twitt\TweetController;
 use App\Http\Controllers\UserController;
 
-Route::controller(AuthController::class)->group(function () {
+// Route::group(['prefix' => 'api/auth'], function () {
+//     Route::get('/', 'AuthControllertest@loadUser');
+//     Route::post('/login', 'AuthControllertest@login');
+//     Route::post('/register', 'AuthControllertest@register');
+//     Route::get('/logout', 'AuthControllertest@logout')->middleware('auth:api');
+//     Route::get('', 'loadUser');
+// });
+
+Route::controller(AuthController::class)->group(function () {    
     Route::post('login', 'login');
     // Route::post('register', 'register');
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
-    Route::post('me', 'me');
-
-    
-
+    Route::get('user', 'loadUser'); // Add this line to include the loadUser route
 });
+
+
 
 Route::controller(StateMandalController::class)->group(function () {
     Route::get('states', 'fetchState');
     Route::get('districts', 'fetchDistrict');
     Route::get('mandals', 'fetchMandal');
     Route::get('villages', 'fetchVillage');
-    // Route::get('village', 'show');
-    
-
+    // Route::get('village', 'show');   
 });
 
 
@@ -37,10 +44,19 @@ Route::controller(VillageController::class)->group(function () {
     Route::get('village', 'show');
     // Route::get('districts', 'fetchDistrict');
     // Route::get('mandals', 'fetchMandal');
-    // Route::get('villages', 'fetchVillage');
-    
-
+    // Route::get('villages', 'fetchVillage');   
 });
+
+Route::controller(TweetController::class)->group(function () {
+    Route::get('tweet', 'index');
+    Route::get('tweet/{id}', 'show');
+    Route::post('tweet',  'store');
+    Route::put('tweet/{id}', 'update');
+    Route::delete('tweet/{id}', 'destroy');
+    Route::post('tweet/{id}/like', 'like');
+    Route::post('tweet/{id}/retweet', 'retweet');
+});
+
 
 
 Route::post('/register', [UserController::class, 'registerUser']);

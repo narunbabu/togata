@@ -12,9 +12,9 @@ use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 class User extends Authenticatable implements JWTSubject
 // class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, HasFactory;
     protected $fillable = ['surname','name', 'email','mobile','password',
-     'role_id', 'currency_id','username','position','admin','editing_village_id'];
+     'role_id', 'username','position','admin','editing_village_id']; //'currency_id',
      protected $hidden = [
         'password',
         'remember_token',
@@ -45,10 +45,10 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsTo(Role::class, 'role_id');
     }
     
-    public function currency()
-    {
-        return $this->belongsTo(Currency::class, 'currency_id');
-    }
+    // public function currency()
+    // {
+    //     return $this->belongsTo(Currency::class, 'currency_id');
+    // }
     
     public function sendPasswordResetNotification($token)
     {
@@ -63,6 +63,31 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function tweets()
+    {
+        return $this->hasMany(Tweet::class);
+    }
+
+    public function retweets()
+    {
+        return $this->hasMany(Retweet::class);
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function following()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'following_id');
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'following_id', 'follower_id');
     }
     
 }

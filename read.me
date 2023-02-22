@@ -14,16 +14,6 @@ composer update --with-all-dependencies
 
 composer require barryvdh/laravel-cors jrean/laravel-user-verification tymon/jwt-auth
 
-#JWT config
-php composer.phar require php-open-source-saver/jwt-auth laravel/telescope
-php artisan vendor:publish --provider="PHPOpenSourceSaver\JWTAuth\Providers\LaravelServiceProvider"
-php artisan jwt:secret
-
-in config/auth.php
-'api' => [
-            'driver' => 'jwt',
-            'provider' => 'users',
-        ],
 
 php artisan make:controller Auth/AuthController
 
@@ -173,19 +163,40 @@ This way, we can simply run $ php artisan db:seed
 
 rm public_html/api/.index.php.swp>middleware('api',')
 
+#JWT config
+php composer.phar require php-open-source-saver/jwt-auth laravel/telescope
+php artisan vendor:publish --provider="PHPOpenSourceSaver\JWTAuth\Providers\LaravelServiceProvider"
+
+/opt/alt/php80/usr/bin/php artisan vendor:publish --provider="PHPOpenSourceSaver\JWTAuth\Providers\LaravelServiceProvider"
+php artisan jwt:secret
+
+in config/auth.php
+'api' => [
+            'driver' => 'jwt',
+            'provider' => 'users',
+        ],
 
 curl -sS https://getcomposer.org/installer | /opt/php70/bin/php
 
 
 ssh -p 65002 u441069787@141.136.33.134
 curl -sS https://getcomposer.org/installer | /opt/alt/php81/usr/bin/php
+curl -sS https://getcomposer.org/installer | /opt/alt/php70/usr/bin/php
 
 curl -sS https://getcomposer.org/installer | /opt/alt/php80/usr/bin/php
 
+/opt/alt/php81/usr/bin/php composer.phar create-project laravel/laravel togata 
+/opt/alt/php80/usr/bin/php composer.phar create-project laravel/laravel togata 
+/opt/alt/php81/usr/bin/php composer.phar require tymon/jwt-auth
+
+
+
+
 /opt/alt/php81/usr/bin/php composer.phar install
 /opt/alt/php80/usr/bin/php composer.phar install
+/opt/alt/php73/usr/bin/php composer.phar install
 /opt/alt/php81/usr/bin/php composer.phar dump-autoload
-
+/opt/alt/php80/usr/bin/php composer.phar dump-autoload
 /opt/alt/php81/usr/bin/php composer.phar clear-cache
 /opt/alt/php81/usr/bin/php artisan optimize
 /opt/alt/php81/usr/bin/php artisan migrate:reset

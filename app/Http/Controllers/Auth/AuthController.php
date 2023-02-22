@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 // use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+
+use App\Models\TweetRelated\Tweet;
 use App\User;
 use App\Http\Controllers\Controller;
 
@@ -17,8 +19,27 @@ class AuthController extends Controller
     {
         $this->middleware('auth:api', ['except' => ['login','register']]);
     }
+    public function loadUser(Request $request)    
+    {
+        // $tweets = Tweet::get();
+        $tweets = Tweet::with(['likes', 'retweets'])
+               ->latest()
+               ->take(4)
+               ->get();
 
-    
+        // $tweets = Tweet::with('user')->get();
+
+    return response()->json($tweets);
+
+        // try {
+        //     $user = auth()->user();
+        //     return response()->json(['user' => $user]);
+        // } catch (\Exception $e) {
+        //     return response()->json(['error' => $e->getMessage()], 500);
+        // }        
+    }
+
+   
 
     public function login(Request $request)
     {
@@ -36,10 +57,10 @@ class AuthController extends Controller
             ], 401);
         }
 
-        $user = Auth::user();
+        // $user = Auth::user();
         return response()->json([
                 'status' => 'success',
-                'user' => $user,
+                // 'user' => $user,
                 'authorisation' => [
                     'token' => $token,
                     'type' => 'bearer',
@@ -81,7 +102,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
         Auth::logout();
         return response()->json([
