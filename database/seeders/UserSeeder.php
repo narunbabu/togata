@@ -28,6 +28,6 @@ class UserSeeder extends Seeder
         foreach ($items as $item) {
             User::create($item);
         }
-        User::factory()->count(10)->create();
+        // User::factory()->count(10)->create();
     }
 }

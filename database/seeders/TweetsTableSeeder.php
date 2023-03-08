@@ -37,29 +37,37 @@ class TweetsTableSeeder extends Seeder
         $tweets = explode("\n", $string);
         // $tweetController = new TweetController();
 
-        foreach ($tweets as $tweetstr) {
-            // $this->line($tweetstr);
-            $userIds = User::pluck('id');
+        // foreach ($tweets as $tweetstr) {
+        //     // $this->line($tweetstr);
+        //     $userIds = User::pluck('id');
+        //     $usernames = DB::table('users')->pluck('username');
+        //     $randomUserId = $userIds->random();
+        //     $tweet = new Tweet();
+        //     $tweet->message = $tweetstr;
+        //     $tweet->user_id = strval($randomUserId) ;
+        //     $tweet->type_id = 1 ;
+        //     $tweet->save();
+        // }
+        $userIds = User::pluck('id');
             $usernames = DB::table('users')->pluck('username');
             $randomUserId = $userIds->random();
             $tweet = new Tweet();
-            $tweet->message = $tweetstr;
+            $tweet->message = 'తొగట యాప్ కి స్వాగతం. ఇక్కడ మీరు మీకు నచ్చిన విషయాన్ని పంచుకొనిన, అది అందరికీ కనిపిస్తుంది. అదృష్టం మీ వైపు చూడగలదు.';
             $tweet->user_id = strval($randomUserId) ;
             $tweet->type_id = 1 ;
             $tweet->save();
-        }
 
-        $hashtags = [
-            '#love',            '#instagood',            '#photooftheday',            '#fashion',            '#beautiful',            '#happy',
-            '#cute',            '#tbt',            '#like4like',            '#followme',            '#picoftheday',            '#selfie',           
-             '#summer',            '#friends',            '#fun',            '#food',            '#travel',            '#art',            '#nature',            '#smile'
-        ];
+        // $hashtags = [
+        //     '#love',            '#instagood',            '#photooftheday',            '#fashion',            '#beautiful',            '#happy',
+        //     '#cute',            '#tbt',            '#like4like',            '#followme',            '#picoftheday',            '#selfie',           
+        //      '#summer',            '#friends',            '#fun',            '#food',            '#travel',            '#art',            '#nature',            '#smile'
+        // ];
 
-        foreach ($hashtags as $tag) {
-            DB::table('hashtags')->insert([
-                'tag' => $tag,
-            ]);
-        }
+        // foreach ($hashtags as $tag) {
+        //     DB::table('hashtags')->insert([
+        //         'tag' => $tag,
+        //     ]);
+        // }
 
 
 
