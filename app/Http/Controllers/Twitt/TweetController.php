@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Twitt;
 use App\Http\Controllers\Controller;
 use App\Models\TweetRelated\Tweet;
+use App\Models\TweetRelated\Comment;
+use App\Models\TweetRelated\Type;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,85 +19,138 @@ class TweetController extends Controller
         $this->middleware('auth:api', ['except' => []]);
     }
 
-    public function index()
-    {
-        $tweets = Tweet::with(['likes', 'retweets'])->take(5)->get();
-        // $tweets = Tweet::with(['likes', 'retweets'])
-        //        ->latest()
-        //        ->take(10)
-        //        ->get();
-        // dump(response()->json($tweets));
-    return response()->json($tweets);
-    }
+    // public function index()
+    // {
+    //     $tweets = Tweet::with('retweets')
+    //            ->orderBy('created_at', 'desc')
+    //            ->take(10)
+    //            ->get();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    //     return response()->json(['tweets' => $tweets]);
+    // }
+
+    public function index()
+{
+    $tweets = Tweet::where('type_id',1)
+                ->orderBy('created_at', 'desc')
+               ->take(10)
+               ->select()
+               ->get();
+
+    return response()->json(['tweets' => $tweets]);
+}
+public function getNewTweets(int $from_tweet_id)
+{   
+    // 
+    // $request = new Request(['id' => 38]);
+    // $from_tweet_id=$request->input('id');
+    // return $id;
+    $records = Tweet::where('id', '>', $from_tweet_id)->orderBy('created_at', 'desc')
+  ->get();
+  return response()->json(['tweets' => $records]);
+    // $tweets = Tweet::where('id','>',$from_tweet_id)
+    //             ->orderBy('created_at', 'desc')
+    //             ->select()
+    //            ->get();
+
+    return response()->json(['tweets' => $tweets]);
+}
+
+
+
+
+
+    
+    public function userTweets()
     {
-        $validatedData = $request->validate([
-            'text' => 'required|max:280',
+        $user = auth()->user();
+        $tweets = $user->tweets()->with('retweets')->get();
+        
+        return response()->json([
+            'tweets' => $tweets
         ]);
 
+
+    }
+
+    public function saveTweet(Tweet $tweet)
+    {
+        $tweet->save();        
+        return $tweet;
+    }
+
+
+    public function store(Request $request)
+    {        
+        $validatedData = $request->validate([
+            'message' => 'required|max:280',
+            'type_id' => 'required|integer'
+        ]);
         $tweet = new Tweet();
-        $tweet->text = $validatedData['text'];
-        $tweet->user_id = auth()->user()->id;
+        $tweet->message = $request->input('message');
+        $tweet->user_id = auth()->id();
+        $tweet->type_id = $request->input('type_id');
         $tweet->save();
 
-        return response()->json($tweet);
+        if ($tweet->type_id==3){
+            $comment = new Comment();
+            $comment->user_id = $tweet->user_id;
+            $comment->this_tweet_id = $tweet->id;
+            $comment->for_tweet_id = $request->input('for_tweet_id');
+            $comment->save();
+        }
+        return response()->json(['tweet' => $tweet]);
+    //    return response()->json(saveTweet($tweet));
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\TweetRelated\Tweet  $tweet
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show(Tweet $tweet)
     {
-        // return $request;
-        // $tweet = new Tweet();
-        // $tweet->load('user', 'likes.user', 'retweets.user');
-        // $tweet->load('user');
-        // $tweet = Tweet::where('id', $id)->with('user')->first();
+        $array = $tweet->toArray(); 
+        $array['comments_array'] = $tweet->givecomments();
+        return $array;
 
-        // $data['tweet'] = Tweet::where("id",$tweet->id)->with('user')->first();
-        // return response()->json($data);
-        return response()->json($tweet->with('user')->first());
+        // return response()->json($tweet->with('user')->first());
+    }
+    public function getResponses(Tweet $tweet)
+    {
+
+        return 
+        response()->json(['responses' => $tweet->givecomments()]);
+
+        // return response()->json($tweet->with('user')->first());
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\TweetRelated\Tweet  $tweet
-     * @return \Illuminate\Http\Response
-     */
+    public function showTweets()
+    {
+        return auth()->user()->allTweets();
+
+        // return view('tweets.index', compact('tweets'));
+    }
+
     public function update(Request $request, Tweet $tweet)
     {
         $validatedData = $request->validate([
-            'text' => 'required|max:280',
+            'message' => 'required|max:280',
         ]);
 
-        $tweet->text = $validatedData['text'];
+        $tweet->message = $validatedData['message'];
+        $tweet->type_id = $validatedData['type_id'];
         $tweet->save();
 
-        return response()->json($tweet);
+        return response()->json(['tweet' => $tweet]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\TweetRelated\Tweet  $tweet
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Tweet $tweet)
     {
         $tweet->delete();
 
         return response()->json(['message' => 'Tweet deleted successfully']);
+    }
+
+    public function getTweetTypes()
+    {
+        $types = Type::all();
+
+        return response()->json(['types' => $types]);
     }
 }

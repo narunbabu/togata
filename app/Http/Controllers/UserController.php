@@ -30,7 +30,7 @@ class UserController extends Controller
             $rules=[
                 'surname'=>'required|regex:/^[\pL\s\-]+$/u',
                 'name'=>'required|regex:/^[\pL\s\-]+$/u',
-                'mobile'=>'required|numeric|digits:11',
+                'mobile'=>'required|numeric|digits:10',
                 'email'=> 'required|email|max:255',
                 'password'=>'required',
                 'password'=>'required|digits:8',
@@ -59,7 +59,9 @@ class UserController extends Controller
                 Session::flash('error_message',$message);
                 // return redirect()->back(); 
                 if(strpos($url, 'api') !== false){
-                    return $message;}
+                    // return $message;}
+                    return response()->json(['info'=>['status'=>'Error','message'=>'Email already registered']]);
+                }
                 else{
                     return redirect()->back();
                 }
@@ -97,31 +99,18 @@ class UserController extends Controller
 
                 // Redirect Back With Success Message
 
-                $message="Please Check Your Email For Confirmation to Activate Your Account!";
+                $message="Please Check Your Email account For Confirmation to Activate Your Account!";
                 Session::put('success_message',$message);
 
                 if(strpos($url, 'api') !== false){
-                    return ['message'=>$message];
+                    // return ['info'=>['message'=>$message,'email'=> $data['email']]];
+                    return response()->json(['info'=>['status'=>'Success','message'=>$message,'email'=> $data['email']]]);
                 }
                 else{
-                    return redirect()->back();
+                    return response()->json(['info'=>['status'=>'Error','message'=>'Email already registered']]);
                 }
 
-                // if(Auth::attempt(['email'=>$data['email'],'password'=>$data['password']])){
-                //     // echo "<pre>"'; print_r(Auth::User()); die;
-                //     if(!empty(Session::get('session_id'))){
-                //         $user_id = Auth::user()->id;
-                //         $session_id = Session::get('session_id');
-                //         Cart::where('session_id',$session_id)->update(['user_id'=>$user_id]);
-                //     }
 
-                //     $email=$data['email'];
-                //     $messageData=['name'=>$data['name'],'mobile'=>$data['mobile'],'email'=>$data['email']];
-                //     Mail::send('emails.register',$messageData,function($message) use($email){
-                //         $message->to($email)->subject('Welcome to Airsoft Point');
-                //     });
-                //     return redirect('/products/my-cart');
-                // }
             }
         }
     }

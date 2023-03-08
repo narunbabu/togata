@@ -14,13 +14,7 @@ return new class extends Migration
     public function up()
     {
 
-        // Schema::create('intiperus', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->string('name');
-        //     $table->timestamps();
-        // });
-
-        Schema::create('qualifications', function (Blueprint $table) {
+       Schema::create('qualifications', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->timestamps();

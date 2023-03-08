@@ -1,22 +1,23 @@
 <?php
+
 namespace App\Models\TweetRelated;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
-class Retweet extends Model
+
+class Mention extends Model
 {
     use HasFactory;
 
     protected $fillable = ['user_id','tweet_id'];
 
-    public function user()
+    public function tweets()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(Tweet::class, 'tweet_id');
     }
-
-    public function tweet()
+    public function users()
     {
-        return $this->belongsTo(Tweet::class);
+        return $this->belongsToMany(User::class, 'user_id');
     }
 }

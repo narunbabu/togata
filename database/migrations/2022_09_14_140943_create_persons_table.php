@@ -21,9 +21,9 @@ return new class extends Migration
             $table->biginteger('village_id');
             $table->char('ward_no',5);
             $table->char('house_no',52);
-            $table->string('intiperu');
-            $table->string('peru');
-            $table->string('father_husb_name');
+            $table->string('intiperu',120);
+            $table->string('peru',120);
+            $table->string('father_husb_name',120);
             $table->char('gender',5);
             $table->date('dob');
             $table->tinyInteger('edu_qualification_id');
@@ -36,9 +36,10 @@ return new class extends Migration
             $table->char('aadhaar',16);
             $table->char('ration_card',16);
             $table->char('mobile',16);
-            $table->unsignedInteger('created_by_id')->nullable();
+            $table->foreignId('created_by_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
+        
 
         
        

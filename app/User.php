@@ -13,7 +13,7 @@ class User extends Authenticatable implements JWTSubject
 // class User extends Authenticatable
 {
     use Notifiable, HasFactory;
-    protected $fillable = ['surname','name', 'email','mobile','password',
+    protected $fillable = ['surname','name','username', 'email','mobile','password',
      'role_id', 'username','position','admin','editing_village_id']; //'currency_id',
      protected $hidden = [
         'password',
@@ -22,19 +22,7 @@ class User extends Authenticatable implements JWTSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
 
-    // public function setPasswordAttribute($input)
-    // {
-    //     if ($input)
-    //         $this->attributes['password'] = app('hash')->needsRehash($input) ? Hash::make($input) : $input;
-    // }
-    
-
-    /**
-     * Set to null if empty
-     * @param $input
-     */
     public function setRoleIdAttribute($input)
     {
         $this->attributes['role_id'] = $input ? $input : null;
@@ -44,12 +32,7 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->belongsTo(Role::class, 'role_id');
     }
-    
-    // public function currency()
-    // {
-    //     return $this->belongsTo(Currency::class, 'currency_id');
-    // }
-    
+
     public function sendPasswordResetNotification($token)
     {
        $this->notify(new ResetPassword($token));
@@ -75,6 +58,16 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Retweet::class);
     }
 
+    public function allTweets()
+    {
+        return Tweet::whereIn('user_id', $this->follows()->pluck('following_id')->push($this->id))
+                    ->orWhereIn('id', $this->retweets()->pluck('tweet_id'))
+                    ->with('user')
+                    ->latest()
+                    ->paginate(10);
+    }
+
+
     public function likes()
     {
         return $this->hasMany(Like::class);
@@ -82,12 +75,17 @@ class User extends Authenticatable implements JWTSubject
 
     public function following()
     {
-        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'following_id');
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'following_id');
     }
 
     public function followers()
     {
-        return $this->belongsToMany(User::class, 'follows', 'following_id', 'follower_id');
+        return $this->belongsToMany(User::class, 'followers', 'following_id', 'follower_id');
+    }
+
+    public function mentionedIn()
+    {
+        return $this->belongsToMany(Tweet::class, 'mentions');
     }
     
 }

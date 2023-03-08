@@ -219,3 +219,5 @@ curl -sS https://getcomposer.org/installer | /opt/cpanel/ea-php71/root/usr/bin/p
 /opt/cpanel/ea-php71/root/usr/bin/php composer.phar clear-cache
 
 /opt/cpanel/ea-php71/root/usr/bin/php artisan migrate --path="/vendor/jrean/laravel-user-verification/src/resources/migrations"
+
+php artisan schedule:work // This will run a program kept in kernel.php

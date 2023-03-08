@@ -9,10 +9,17 @@ class SeedController extends Controller
     public function createusers()
     {
         $exampleVariable = 'Hello, world!';
-        return [$exampleVariable];
-        dump($exampleVariable);
-        // $users = User::factory()->count(10)->create();
-        // dump($users);
+        $users = User::factory()->count(10)->create();
+        dump($users);
     }
     
+
+    public function createtweets()
+    {
+        $exampleVariable = 'Hello, world!';
+
+        // dump($exampleVariable);
+        $users = User::factory()->count(10)->create();
+        dump($users);
+    }
 }

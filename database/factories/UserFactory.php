@@ -2,6 +2,7 @@
 namespace Database\Factories;
 
 use Faker\Generator as Faker;
+use Faker\Provider\PhoneNumber;
 use Illuminate\Support\Str;
 use App\User;
 
@@ -10,12 +11,18 @@ class UserFactory extends Factory
 { 
     protected $model = User::class;
     public function definition()
-    {        
+    {
+        $surname = $this->faker->lastName;
+        $name = $this->faker->firstName;
+        $username = strtolower(substr($surname, 0, 1) . $name);
+        $phoneNumber = PhoneNumber::phoneNumber();
+        $phoneNumber = substr($phoneNumber, 0, 10);
+        
         return [
-            'surname' => $this->faker->lastName,
-            'name' => $this->faker->firstName,
-            
-            'mobile' => $this->faker->phoneNumber,
+            'surname' => $surname,
+            'name' => $name,
+            'username' => $username,
+            'mobile' => $phoneNumber,
             'email' => $this->faker->unique()->safeEmail,
             'password' => bcrypt('password'),
             'status' => 1,

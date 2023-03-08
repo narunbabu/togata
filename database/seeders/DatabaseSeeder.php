@@ -18,27 +18,25 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
        
-    // $this->call([
-    //     AdminsTableSeeder::class,
-    //     // CurrencySeed::class,
-    //     RoleSeeder::class,
-    //     // IntiperuSeeder::class,
-    //     UserSeeder::class, 
-    //     StateSeeder::class,
-    //     DistrictSeeder::class,
-    //     MandalSeeder::class,        
-    //     VillageSeeder::class,               
-    //     PersonSeed::class,
-    //     PersonRelatedTableSeeder::class,
-    //     HouseDetailsTableSeeder::class,       
-        
-    // ]);
-
-
     $this->call([
-
+        // AdminsTableSeeder::class,
+        // CurrencySeed::class,
+        RoleSeeder::class,
+        // IntiperuSeeder::class,
+        UserSeeder::class, 
+        StateSeeder::class,
+        DistrictSeeder::class,
+        MandalSeeder::class,        
+        VillageSeeder::class,               
+        PersonSeed::class,
+        PersonRelatedTableSeeder::class,
+        HouseDetailsTableSeeder::class,               
+        TweetTypeSeeder::class,
         TweetsTableSeeder::class,
+        
     ]);
+
+
 
 
 }

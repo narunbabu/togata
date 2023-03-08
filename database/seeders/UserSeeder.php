@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
+use App\User;
 class UserSeeder extends Seeder
 {
     /**
@@ -18,15 +18,16 @@ class UserSeeder extends Seeder
         $items = [
             
             
-            ['id'=>1,'surname'=>'Nalamara','name'=>'Arun ','mobile'=>'8800197778',
+            ['id'=>1,'surname'=>'Nalamara','name'=>'Arun','username'=>'arun','mobile'=>'8800197778',
             'email'=>'ab@ameyem.com','password'=>bcrypt('ab@123'),'status'=>1,'role_id'=>1,'editing_village_id'=>1],
-            ['id'=>2,'surname'=>'Nalamara','name'=>'Arun ','mobile'=>'8800197778',
+            ['id'=>2,'surname'=>'Nalamara','name'=>'Arun','username'=>'arunbabu','mobile'=>'8800197778',
             'email'=>'ab2@ameyem.com','password'=>bcrypt('arun123'),'status'=>1,'role_id'=>1,'editing_village_id'=>1],
 
         ];
 
         foreach ($items as $item) {
-            \App\User::create($item);
+            User::create($item);
         }
+        User::factory()->count(10)->create();
     }
 }

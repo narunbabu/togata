@@ -6,31 +6,27 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('tweets', function (Blueprint $table) {
             $table->id();
+            // $table->unsignedInteger('user_id');
             $table->unsignedBigInteger('user_id');
-            $table->string('text');
+            $table->unsignedTinyInteger('type_id')->default(1);
+            $table->string('message');
             $table->timestamps();
 
             $table->foreign('user_id')
                   ->references('id')
                   ->on('users')
                   ->onDelete('cascade');
-        });
+                           
+            $table->foreign('type_id')
+                  ->references('id')
+                  ->on('types');
+                }); 
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('tweets');

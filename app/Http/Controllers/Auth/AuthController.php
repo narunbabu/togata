@@ -19,25 +19,37 @@ class AuthController extends Controller
     {
         $this->middleware('auth:api', ['except' => ['login','register']]);
     }
-    public function loadUser(Request $request)    
-    {
-        // $tweets = Tweet::get();
-        $tweets = Tweet::with(['likes', 'retweets'])
-               ->latest()
-               ->take(4)
-               ->get();
+    // public function loadUser(Request $request)    
+    // {
+    //     try {
+    //         $user = auth()->user();
+    //         return response()->json(['user' => $user]);
+    //     } catch (\Exception $e) {
+    //         return response()->json(['error' => $e->getMessage()], 500);
+    //     }        
+    // }
 
-        // $tweets = Tweet::with('user')->get();
+    public function loadUser(Request $request)
+{
+    try {
+        $user = auth()->user();
+        $followerCount = $user->followers()->count();
+        $followingCount = $user->following()->count();
 
-    return response()->json($tweets);
+        $userData = $user->toArray();
+        $userData['follower_count'] = $followerCount;
+        $userData['following_count'] = $followingCount;
+        return response()->json(['user' => $userData]);
 
-        // try {
-        //     $user = auth()->user();
-        //     return response()->json(['user' => $user]);
-        // } catch (\Exception $e) {
-        //     return response()->json(['error' => $e->getMessage()], 500);
-        // }        
+        // return response()->json([
+        //     'user' => $user,
+        //     'follower_count' => $followerCount,
+        //     'following_count' => $followingCount
+        // ]);
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
     }
+}
 
    
 
